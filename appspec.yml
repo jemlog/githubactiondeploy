@@ -2,7 +2,7 @@ version: 0.0
 os: linux
 files:
   - source: /
-    destination: /home/ubuntu/actionsdeploy/
+    destination: /home/ubuntu/actionsdeploy/ # 여기는 project name과 다르게 원하는 이름 설정 가능
     overwrite: yes
 
 permissions:
@@ -10,3 +10,15 @@ permissions:
     pattern: "**"
     owner: ubuntu
     group: ubuntu
+
+hooks:
+  ApplicationStart:
+    - location: scripts/run_new_was.sh
+      timeout: 180
+      runas: ubuntu
+    - location: scripts/health_check.sh
+      timeout: 180
+      runas: ubuntu
+    - location: scripts/switch.sh
+      timeout: 180
+      runas: ubuntu
